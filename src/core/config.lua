@@ -1,23 +1,20 @@
 _G.config = {
-	mode = 1, -- Режим работы APCS (Общий)
-	modes_config = { -- Настройки режима работы APCS
-		-- Общий
-		-- anything settings [IN DEV]
+	mode = 2,
+	modes_config = {
+		Y_max = 45,
+		Y_min = 60,
+		gen_start = 45,
+		gen_stop = 65,
 		
-		-- Режим работы 1
-		-- anything settings [IN DEV]
+		auto_search_FS = true,
+		manual_FS_address_table = {},
 		
-		-- Режим работы 2
-		auto_search_ES = true, -- Искать ли адреса автоматически (это имеет приоритет выше таблицы поиска)
-		manual_ES_address_table = {
-			"00000000-0000-0000-0000-000000000000", -- Адрес ES
-		},
+		auto_search_ES = true,
+		manual_ES_address_table = {},
 	},
 	
-	auto_search_gens = true, -- Искать ли генераторы автоматически
-	manual_gens_address_table = {
-		"00000000-0000-0000-0000-000000000000",
-	},
+	auto_search_gens = true,
+	manual_gens_address_table = {},
 	
 	reboot_with_err = false,
 	time_sleep = 2.5,

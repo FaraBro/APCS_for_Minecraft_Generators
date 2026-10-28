@@ -34,28 +34,57 @@ function _G.drivers.gen.ntm_combustion_engine.get_elements()
 	end
 end
 
+function _G.drivers.gen.ntm_combustion_engine.get_data_individual(element)
+	_G.tags.gen.ntm_combustion_engine.data[element].fluid, _G.tags.gen.ntm_combustion_engine.data[element].max_fluid = _G.tags.gen.ntm_combustion_engine.elements[element].getFluid()
+	_G.tags.gen.ntm_combustion_engine.data[element].fluid_type = _G.tags.gen.ntm_combustion_engine.elements[element].getType()
+	_G.tags.gen.ntm_combustion_engine.data[element].working = _G.tags.gen.ntm_combustion_engine.elements[element].getState()
+	_G.tags.gen.ntm_combustion_engine.data[element].throttle = _G.tags.gen.ntm_combustion_engine.elements[element].getThrottle()*10//3
+end
+
 function _G.drivers.gen.ntm_combustion_engine.get_data()
-	for index, element in ipairs(_G.tags.gen.ntm_combustion_engine.elements) do
-		_G.tags.gen.ntm_combustion_engine.data[index].max_fluid, _G.tags.gen.ntm_combustion_engine.data[index].fluid = element.getFluid()
-		_G.tags.gen.ntm_combustion_engine.data[index].working = element.getState()
-		_G.tags.gen.ntm_combustion_engine.data[index].throttle = element.getThrottle()*10//3
+	local elements_count = #_G.tags.gen.ntm_combustion_engine.elements
+	if elements_count > 0 then
+		for index = 1, elements_count do
+			_G.drivers.gen.ntm_combustion_engine.get_data_individual(index)
+		end
 	end
+end
+
+function _G.drivers.gen.ntm_combustion_engine.set_throttle_individual(element, throttle)
+	_G.tags.gen.ntm_combustion_engine.elements[element].setThrottle(throttle//10*3)
 end
 
 function _G.drivers.gen.ntm_combustion_engine.set_throttle(throttle)
-	for element in pairs(_G.tags.gen.ntm_combustion_engine.elements) do
-		_G.tags.gen.ntm_combustion_engine.elements[element].setThrottle(throttle//10*3)
+	local elements_count = #_G.tags.gen.ntm_combustion_engine.elements
+	if elements_count > 0 then
+		for index = 1, elements_count do
+			_G.drivers.gen.ntm_combustion_engine.set_throttle_individual(index, throttle)
+		end
 	end
+end
+
+function _G.drivers.gen.ntm_combustion_engine.start_individual(element)
+	_G.tags.gen.ntm_combustion_engine.elements[element].start()
 end
 
 function _G.drivers.gen.ntm_combustion_engine.start()
-	for element in pairs(_G.tags.gen.ntm_combustion_engine.elements) do
-		_G.tags.gen.ntm_combustion_engine.elements[element].start()
+	local elements_count = #_G.tags.gen.ntm_combustion_engine.elements
+	if elements_count > 0 then
+		for index = 1, elements_count do
+			_G.drivers.gen.ntm_combustion_engine.start_individual(index)
+		end
 	end
 end
 
+function _G.drivers.gen.ntm_combustion_engine.stop_individual(element)
+	_G.tags.gen.ntm_combustion_engine.elements[element].stop()
+end
+
 function _G.drivers.gen.ntm_combustion_engine.stop()
-	for element in pairs(_G.tags.gen.ntm_combustion_engine.elements) do
-		_G.tags.gen.ntm_combustion_engine.elements[element].stop()
+	local elements_count = #_G.tags.gen.ntm_combustion_engine.elements
+	if elements_count > 0 then
+		for index = 1, elements_count do
+			_G.drivers.gen.ntm_combustion_engine.stop_individual(index)
+		end
 	end
 end
