@@ -5,3 +5,7 @@
 Описание полей в [tags](/src/core/tags.lua): [tags](/doc/tags.md)
 
 Описание полей в drivers: [drivers](/doc/drivers.md)
+
+Описание полей в [config](/src/core/config.lua): [config](/doc/config.md)
+
+Все возможные Errors, которые может выдать программа: [errors](/doc/errors.md)

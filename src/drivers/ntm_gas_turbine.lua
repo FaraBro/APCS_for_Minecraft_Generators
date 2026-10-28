@@ -34,32 +34,57 @@ function _G.drivers.gen.ntm_gas_turbine.get_elements()
 	end
 end
 
+function _G.drivers.gen.ntm_gas_turbine.get_data_individual(element)
+	_G.tags.gen.ntm_gas_turbine.data[element].fluid, _G.tags.gen.ntm_gas_turbine.data[element].max_fluid = _G.tags.gen.ntm_gas_turbine.elements[element].getFluid()
+	_G.tags.gen.ntm_gas_turbine.data[element].fluid_type = _G.tags.gen.ntm_gas_turbine.elements[element].getType()
+	_G.tags.gen.ntm_gas_turbine.data[element].working = _G.tags.gen.ntm_gas_turbine.elements[element].getState() == 1 or true and false
+	_G.tags.gen.ntm_gas_turbine.data[element].throttle = _G.tags.gen.ntm_gas_turbine.elements[element].getThrottle()
+end
+
 function _G.drivers.gen.ntm_gas_turbine.get_data()
-	for index, element in ipairs(_G.tags.gen.ntm_gas_turbine.elements) do
-		_G.tags.gen.ntm_gas_turbine.data[index].fluid, _G.tags.gen.ntm_gas_turbine.data[index].max_fluid = element.getFluid()
-		_G.tags.gen.ntm_gas_turbine.data[index] = {
-			working = element.getState(),
-			throttle = element.getThrottle(),
-		}
-	end
-end
-
-function _G.drivers.gen.ntm_gas_turbine.set_throttle(throttle)
-	for element in pairs(_G.tags.gen.ntm_gas_turbine.elements) do
-		_G.tags.gen.ntm_gas_turbine.elements[element].setThrottle(throttle)
-	end
-end
-
-function _G.drivers.gen.ntm_gas_turbine.start()
-	for index, element in ipairs(_G.tags.gen.ntm_gas_turbine.elements) do
-		if _G.tags.gen.ntm_gas_turbine.data[index].working >= 0 then
-			element.start()
+	local elements_count = #_G.tags.gen.ntm_gas_turbine.elements
+	if elements_count > 0 then
+		for index = 1, elements_count do
+			_G.drivers.gen.ntm_gas_turbine.get_data_individual(index)
 		end
 	end
 end
 
+function _G.drivers.gen.ntm_gas_turbine.set_throttle_individual(element, throttle)
+	_G.tags.gen.ntm_gas_turbine.elements[element].setThrottle(throttle)
+end
+
+function _G.drivers.gen.ntm_gas_turbine.set_throttle(throttle)
+	local elements_count = #_G.tags.gen.ntm_gas_turbine.elements
+	if elements_count > 0 then
+		for index = 1, elements_count do
+			_G.drivers.gen.ntm_gas_turbine.set_throttle_individual(element, throttle)
+		end
+	end
+end
+
+function _G.drivers.gen.ntm_gas_turbine.start_individual(element)
+	_G.tags.gen.ntm_gas_turbine.elements[element].start()
+end
+
+function _G.drivers.gen.ntm_gas_turbine.start()
+	local elements_count = #_G.tags.gen.ntm_gas_turbine.elements
+	if elements_count > 0 then
+		for index = 1, elements_count do
+			_G.drivers.gen.ntm_gas_turbine.start_individual(index)
+		end
+	end
+end
+
+function _G.drivers.gen.ntm_gas_turbine.stop_individual(element)
+	_G.tags.gen.ntm_gas_turbine.elements[element].stop()
+end
+
 function _G.drivers.gen.ntm_gas_turbine.stop()
-	for element in pairs(_G.tags.gen.ntm_gas_turbine.elements) do
-		element.stop()
+	local elements_count = #_G.tags.gen.ntm_gas_turbine.elements
+	if elements_count > 0 then
+		for index = 1, elements_count do
+			_G.drivers.gen.ntm_gas_turbine.stop_individual(index)
+		end
 	end
 end
