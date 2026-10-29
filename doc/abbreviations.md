@@ -16,6 +16,8 @@
 
 **OpenComp** -- OpenComputers: Мод Minecraft
 
+**su** -- super user
+
 **gen (-s)** -- generator (-s)
 
 **ext** -- extension

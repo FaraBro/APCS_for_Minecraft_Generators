@@ -9,3 +9,7 @@
 Описание полей в [config](/src/core/config.lua): [config](/doc/config.md)
 
 Все возможные Errors, которые может выдать программа: [errors](/doc/errors.md)
+
+Описание кто такие пользователи: [users](/doc/users.md)
+
+[Как взаимодействовать с APCS через клавиатуру?](/doc/keyboard.md)

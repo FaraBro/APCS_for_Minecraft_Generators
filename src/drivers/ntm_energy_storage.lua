@@ -27,18 +27,9 @@ function _G.drivers.ES.ntm_energy_storage.get_elements()
 	end
 end
 
-function _G.drivers.ES.ntm_energy_storage.get_data_individual(element)
+function _G.drivers.ES.ntm_energy_storage.get_data(element)
 	local power, max_power = _G.tags.ES.ntm_energy_storage.elements[element].getEnergyInfo()
 	-- Преобразуем HE в RF
 	_G.tags.ES.ntm_energy_storage.data[element].power = power*4
 	_G.tags.ES.ntm_energy_storage.data[element].max_power = max_power*4
-end
-
-function _G.drivers.ES.ntm_energy_storage.get_data()
-	local FS_count = #_G.tags.FS.ntm_energy_storage.elements
-	if FS_count > 0 then
-		for index = 1, E_count do
-			_G.drivers.ES.ntm_energy_storage.get_data_individual(index)
-		end
-	end
 end

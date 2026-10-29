@@ -21,6 +21,11 @@ local ok, result = pcall(function()
 
 	loadfile("/core/config.lua")(loadfile)
 	loadfile("/core/tags.lua")(loadfile)
+	
+	for su_index, su in ipairs(_G.config.su) do
+		_G.config.su[su] = true
+		table.remove(_G.config.su, 1)
+	end
 
 	_G.drivers = {
 		gen = {},
@@ -54,7 +59,6 @@ local ok, result = pcall(function()
 	local ok, result = pcall(function()
 		loadfile("/main.lua")(loadfile)
 	end)
-	error(result)
 	
 	if not ok then
 		computer.beep(1000, 0.2)
@@ -62,17 +66,29 @@ local ok, result = pcall(function()
 			computer.shutdown(true)
 		else
 			local err = {}
-			err[1] = type(result) == "table" or result[1] and "ERR E-000: Unkown ERR (" .. tostring(result) .. ")"
-			err[2] = type(result) == "table" or result[2] and 000
+			if type(result) == "table" then
+				err = result
+			else
+				err[1] = "ERR E-000: Unkown ERR (" .. tostring(result) .. ")"
+				err[2] = 000
+			end
+			
 			error({err[1], err[2]}, 0)
 		end
 	end
 end)
 if not ok then
 	computer.beep(500, 0.2)
-	error(result)
+	
 	local err = {}
-	err[1] = type(result) == "table" or result[1] and "ERR E-000: Unkown ERR (" .. tostring(result) .. ")"
-	err[2] = type(result) == "table" or result[2] and 000
+	if type(result) == "table" then
+		err = result
+	else
+		err[1] = "ERR E-000: Unkown ERR (" .. tostring(result) .. ")"
+		err[2] = 000
+	end
+	
 	error(err[1], 0)
+else
+	computer.shutdown()
 end
