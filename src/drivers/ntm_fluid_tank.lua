@@ -27,17 +27,8 @@ function _G.drivers.FS.ntm_fluid_tank.get_elements()
 	end
 end
 
-function _G.drivers.FS.ntm_fluid_tank.get_data_individual(element)
+function _G.drivers.FS.ntm_fluid_tank.get_data(element)
 	_G.tags.FS.ntm_fluid_tank.data[element].fluid = _G.tags.FS.ntm_fluid_tank.elements[element].getFluidStored()
 	_G.tags.FS.ntm_fluid_tank.data[element].max_fluid = _G.tags.FS.ntm_fluid_tank.elements[element].getMaxStored()
 	_G.tags.FS.ntm_fluid_tank.data[element].fluid_type = _G.tags.FS.ntm_fluid_tank.elements[element].getTypeStored()
-end
-
-function _G.drivers.FS.ntm_fluid_tank.get_data()
-	local FS_count = #_G.tags.FS.ntm_fluid_tank.elements
-	if FS_count > 0 then
-		for index = 1, FS_count do
-			_G.drivers.FS.ntm_fluid_tank.get_data_individual(index)
-		end
-	end
 end

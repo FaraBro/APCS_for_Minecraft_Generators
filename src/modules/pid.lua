@@ -32,16 +32,18 @@ local function one(gen_driver_name, gen_index, fluid, max_fluid)
 	local fluid_prosent = fluid / max_fluid * 100
 	if _G.tags.gen[gen_driver_name].data[gen_index].working then
 		if fluid_prosent <= _G.config.modes_config.gen_stop then
-			_G.drivers.gen[gen_driver_name].stop_individual(gen_index)
+			_G.drivers.gen[gen_driver_name].stop(gen_index)
+			_G.tags.gen[gen_driver_name].data[gen_index].state = "S"
 		elseif fluid_prosent <= _G.config.modes_config.Y_min then
-			_G.drivers.gen[gen_driver_name].set_throttle_individual(gen_index, 0)
+			_G.drivers.gen[gen_driver_name].set_throttle(gen_index, 0)
 		elseif fluid_prosent >= _G.config.modes_config.Y_max then
-			_G.drivers.gen[gen_driver_name].set_throttle_individual(gen_index, 100)
+			_G.drivers.gen[gen_driver_name].set_throttle(gen_index, 100)
 		else
-			_G.drivers.gen[gen_driver_name].set_throttle_individual(gen_index, _G.tags.pid.k * fluid_prosent - _G.tags.pid.b)
+			_G.drivers.gen[gen_driver_name].set_throttle(gen_index, _G.tags.pid.k * fluid_prosent - _G.tags.pid.b)
 		end
 	elseif fluid_prosent >= _G.config.modes_config.gen_start then
-		_G.drivers.gen[gen_driver_name].start_individual(gen_index)
+		_G.drivers.gen[gen_driver_name].start(gen_index)
+		_G.tags.gen[gen_driver_name].data[gen_index].state = "W"
 	end
 end
 
@@ -51,16 +53,18 @@ local function two(gen_driver_name, gen_index, power, max_power)
 	local power_prosent = power / max_power * 100
 	if _G.tags.gen[gen_driver_name].data[gen_index].working then
 		if power_prosent >= _G.config.modes_config.gen_stop then
-			_G.drivers.gen[gen_driver_name].stop_individual(gen_index)
+			_G.drivers.gen[gen_driver_name].stop(gen_index)
+			_G.tags.gen[gen_driver_name].data[gen_index].state = "S"
 		elseif power_prosent >= _G.config.modes_config.Y_min then
-			_G.drivers.gen[gen_driver_name].set_throttle_individual(gen_index, 0)
+			_G.drivers.gen[gen_driver_name].set_throttle(gen_index, 0)
 		elseif power_prosent <= _G.config.modes_config.Y_max then
-			_G.drivers.gen[gen_driver_name].set_throttle_individual(gen_index, 100)
+			_G.drivers.gen[gen_driver_name].set_throttle(gen_index, 100)
 		else
-			_G.drivers.gen[gen_driver_name].set_throttle_individual(gen_index, _G.tags.pid.k * power_prosent - _G.tags.pid.b)
+			_G.drivers.gen[gen_driver_name].set_throttle(gen_index, _G.tags.pid.k * power_prosent - _G.tags.pid.b)
 		end
 	elseif power_prosent <= _G.config.modes_config.gen_start then
-		_G.drivers.gen[gen_driver_name].start_individual(gen_index)
+		_G.drivers.gen[gen_driver_name].start(gen_index)
+		_G.tags.gen[gen_driver_name].data[1].state = "W"
 	end
 end
 
