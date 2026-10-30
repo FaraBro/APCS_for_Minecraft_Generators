@@ -22,9 +22,10 @@ local ok, result = pcall(function()
 	loadfile("/core/config.lua")(loadfile)
 	loadfile("/core/tags.lua")(loadfile)
 	
-	for su_index, su in ipairs(_G.config.su) do
-		_G.config.su[su] = true
-		table.remove(_G.config.su, 1)
+	-- Creating SU Hash Table for O(1)
+	for _ = 1, #_G.config.su do 
+		_G.config.su[_G.config.su[1]] = true
+		table.remove(_G.config.su, 1) 
 	end
 
 	_G.drivers = {
@@ -45,7 +46,7 @@ local ok, result = pcall(function()
 	do_dir("/libs")
 	do_dir("/modules")
 	
-	for _, driver_type in ipairs({"gen", "FS", "ES"}) do
+	for driver_type in pairs(drivers) do
 		for driver_name in pairs(_G.drivers[driver_type]) do
 			_G.drivers[driver_type][driver_name].get_elements()
 		end
@@ -77,6 +78,7 @@ local ok, result = pcall(function()
 		end
 	end
 end)
+
 if not ok then
 	computer.beep(500, 0.2)
 	
