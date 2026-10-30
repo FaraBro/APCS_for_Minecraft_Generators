@@ -1,7 +1,7 @@
 local ok, result = pcall(function()
-	_G.APCSVERSION = "2.0.0"
+	_G.APCSVERSION = "2.0.1"
 	_G.filesystem = component.proxy(computer.getBootAddress())
-
+	
 	function _G.loadfile(file)
 		local handle = assert(filesystem.open(file))
 		local buffer = ""
@@ -18,15 +18,16 @@ local ok, result = pcall(function()
 			error(code_error or "Unkown err", 0)
 		end
 	end
-
+	
 	loadfile("/core/config.lua")(loadfile)
 	loadfile("/core/tags.lua")(loadfile)
 	
-	for su_index, su in ipairs(_G.config.su) do
-		_G.config.su[su] = true
-		table.remove(_G.config.su, 1)
+	-- Creating SU Hash Table for O(1)
+	for _ = 1, #_G.config.su do 
+		_G.config.su[_G.config.su[1]] = true
+		table.remove(_G.config.su, 1) 
 	end
-
+	
 	_G.drivers = {
 		gen = {},
 		FS = {},
@@ -34,7 +35,7 @@ local ok, result = pcall(function()
 	}
 	_G.libs = {}
 	_G.modules = {}
-
+	
 	local function do_dir(path)
 		for _, file in ipairs(filesystem.list(path)) do
 		  loadfile(path .. "/" .. file)(loadfile)
@@ -45,16 +46,16 @@ local ok, result = pcall(function()
 	do_dir("/libs")
 	do_dir("/modules")
 	
-	for _, driver_type in ipairs({"gen", "FS", "ES"}) do
+	for driver_type in pairs(drivers) do
 		for driver_name in pairs(_G.drivers[driver_type]) do
 			_G.drivers[driver_type][driver_name].get_elements()
 		end
 	end
-
+	
 	for APCS_module in pairs(modules) do
 		_G.modules[APCS_module].init()
 	end
-
+	
 	_G.tags.state = "O"
 	local ok, result = pcall(function()
 		loadfile("/main.lua")(loadfile)
@@ -77,6 +78,7 @@ local ok, result = pcall(function()
 		end
 	end
 end)
+
 if not ok then
 	computer.beep(500, 0.2)
 	
