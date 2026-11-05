@@ -1,6 +1,6 @@
 -- Pre-Cycle Actions
 
--- Назначаем переменные
+-- Var
 local mode
 local elements_count
 local all_storage
@@ -9,10 +9,16 @@ local all_storage_for_gen
 local all_max_storage_for_gen
 local event = {}
 local reset_M
+local keys = {
+	[18] = "E",
+	[24] = "O",
+	[46] = "C",
+	[50] = "M",
+}
 
--- Main Cycle
+-- Func
 
-local function stop_all_gens()
+function _G.stop_all_gens()
 	for gen_driver in pairs(_G.drivers.gen) do
 		local elements_count = #_G.tags.gen[gen_driver].elements
 		for gen_index = 1, elements_count do
@@ -23,40 +29,45 @@ local function stop_all_gens()
 	end
 end
 
-local function check_user_perms(doing, user, perm_table)
-	local perm_table = perm_table or _G.config.users_can_use
-	if _G.config.su[user] then
+function _G.check_perms(doing, user, perm_table, su_table)
+	if su_table[user] then
 		return true
 	else
-		return _G.config.users_can_use[doing]
+		return perm_table[doing]
 	end
 end
+
+function _G.set_state(state, user, perm_table, perm_reset_table, su_table)
+	if _G.tags.state ~= "E" then
+		if state == "E" and _G.check_perms("E", user, perm_table, su_table) then
+			_G.tags.state = "E"
+			_G.stop_all_gens()
+			computer.beep(500)
+		elseif state == "M" and _G.tags.state ~= "M" and _G.check_perms("M", user, perm_table, su_table) then
+			_G.tags.state = "M"
+			computer.beep(1000)
+		elseif state == "C" and _G.check_perms("C", user, perm_table, su_table) then
+			_G.stop_all_gens()
+			computer.beep(1000, 0.2)
+			computer.shutdown()
+		end
+	end
+	if state == "O" and _G.check_perms(_G.tags.state, user, perm_reset_table, su_table) then
+		_G.tags.state = "O"
+		reset_M = true
+		computer.beep(1500)
+	end
+end
+
+-- Main Cycle
 
 while true do
 	reset_M = false
 	if event.n then
-		if event.n == 5 then
-			if event[1] == "key_down" then
-				if _G.tags.state ~= "E" then
-					if event[3] == 101 and event[4] == 18 and check_user_perms("E", event[5]) then
-						_G.tags.state = "E"
-						stop_all_gens()
-						computer.beep(500)
-					elseif event[3] == 109 and event[4] == 50 and _G.tags.state ~= "M" and check_user_perms("M", event[5]) then
-						_G.tags.state = "M"
-						computer.beep(1000)
-					elseif event[3] == 99 and event[4] == 46 and check_user_perms("C", event[5]) then
-						stop_all_gens()
-						computer.beep(1000, 0.2)
-						break
-					end
-				end
-				if event[3] == 111 and event[4] == 24 and check_user_perms(_G.tags.state, event[5], _G.config.users_can_use.P) then
-					_G.tags.state = "O"
-					reset_M = true
-					computer.beep(1500)
-				end
-			end
+		if event[1] == "key_up" then
+			_G.set_state(keys[event[4]], event[5], _G.config.users_can_use, _G.config.users_can_use.O, _G.config.su)
+		elseif event[1] == "modem_message" then
+			_G.modules.remote.process_message(event)
 		end
 	end
 	

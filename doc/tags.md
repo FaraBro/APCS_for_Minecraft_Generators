@@ -34,12 +34,15 @@
 	- data -- данные ES-s. Table
 		- Индекс ES-s. Table
 			- power -- кол-во заряда в ES. Number. В RF
-			- max_power -- максимальное кол-во жидкости в ES. Number. В RF
+			- max_power -- максимальное кол-во заряда в ES. Number. В RF
 	- elements -- ES-s данного типа (их component.proxy). Table
 
 **pid** -- ПИД-регулятор. Table. Регулирует в принципе всё и вся. Является отдельным модулем [pid.lua](/src/modules/pid.lua)
-- k -- угловой коэффициент
-- b -- смещение от 0 по оси y при x = 0
+- k -- угловой коэффициент. Number
+- b -- смещение от 0 по оси y при x = 0. Number
+
+**remote** -- remote модуль. Table. Является отдельным модулем [remote.lua](/src/modules/remote.lua) ([документация](/doc/remote.md))
+- data_card -- proxy любого data_card, который поддерживает [AES шифрование](https://ru.wikipedia.org/wiki/AES_(%D1%81%D1%82%D0%B0%D0%BD%D0%B4%D0%B0%D1%80%D1%82_%D1%88%D0%B8%D1%84%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F). Proxy-table
 
 ## Gen data ext
 

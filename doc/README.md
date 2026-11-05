@@ -1,6 +1,6 @@
 Описание того, что за директории в [src](/src): [src_directories](/doc/src_directories.md)
 
-Какие сокращения и как они расшифровываются: [abbreviations](/doc/abbreviations.md)
+Какие есть сокращения и как они расшифровываются: [abbreviations](/doc/abbreviations.md)
 
 Описание полей в [tags](/src/core/tags.lua): [tags](/doc/tags.md)
 
@@ -10,6 +10,8 @@
 
 Все возможные Errors, которые может выдать программа: [errors](/doc/errors.md)
 
-Описание кто такие пользователи: [users](/doc/users.md)
+[Кто такие пользователи?(/doc/users.md)
 
 [Как взаимодействовать с APCS через клавиатуру?](/doc/keyboard.md)
+
+[Как взаимодействовать с APCS через сетевую карту?](/doc/remote.md)

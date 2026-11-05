@@ -12,6 +12,8 @@
 
 **FS** -- Fluid Storage
 
+**BSoD** -- Blue Screen of Death. Стандартный экран неисправимой ошибки в OpenComp.
+
 **NTM** -- Nuclear Tech Mod: Мод Minecraft
 
 **OpenComp** -- OpenComputers: Мод Minecraft
@@ -25,6 +27,10 @@
 **err** -- error
 
 **func** -- function
+
+**var** -- variable
+
+**addr** -- address
 
 **min** -- minimum
 

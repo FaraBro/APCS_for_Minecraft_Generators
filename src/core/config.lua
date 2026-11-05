@@ -19,15 +19,40 @@ _G.config = {
 	reboot_with_err = true,
 	time_sleep = 2.5,
 	
+	output = false,
+	
 	su = {"FaraBro"},
 	users_can_use = {
 		E = true,
 		M = true,
 		C = false,
-		P = {
+		O = {
 			E = false,
 			M = true,
 			O = true,
+		},
+	},
+	
+	remote = {
+		encrypting = false,
+		AES_keys = {},
+		
+		control_port = 4840,
+		controller_port = 4841,
+		
+		authorized_mashines = {},
+		unauthorized_mashines_can = {
+			get_data = false,
+			set_state = {
+				E = false,
+				M = false,
+				C = false,
+			},
+			reset_state = {
+				E = false,
+				M = false,
+				O = false,
+			},
 		},
 	},
 }

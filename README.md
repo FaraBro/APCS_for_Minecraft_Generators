@@ -1,7 +1,8 @@
-# Ссылки
-[Документация](/doc/README.md)  
-[Лицензия](#LICENSE)  
-[Код](/src)  
+# Links
+[Documentation](/doc/README.md)  
+[LICENSE](#LICENSE)  
+[Source Code](/src)  
+[Update Log](/update-log.md)  
 
 # О APCS
 Данная APCS является ~~полной хренью~~ штукой, которая контролирует генераторы.  
