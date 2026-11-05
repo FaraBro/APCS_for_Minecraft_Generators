@@ -49,7 +49,6 @@ local ok, result = pcall(function()
 	
 	-- Creating Hash Tables for O(1)
 	_G.config.su = set_value_for_every_element(_G.config.su, true) -- SU
-	_G.config.remote.authorized_mashines = set_value_for_every_element(_G.config.remote.authorized_mashines, true) -- Authorized Remote Mashines
 	
 	loadfile("/core/drivers_tools.lua")(loadfile)
 	_G.drivers = {
@@ -59,7 +58,7 @@ local ok, result = pcall(function()
 	}
 	_G.libs = {}
 	_G.modules = {}
-
+	
 	local function do_dir(path)
 		for _, file in ipairs(filesystem.list(path)) do
 			loadfile(path .. "/" .. file)(loadfile)
