@@ -4,8 +4,8 @@
 [Source Code](/src)  
 [Update Log](/update-log.md)  
 
-[README English (US)](#en_US)
-[README Russian (RU)][#ru_RU]
+[README English (US)](#en_US)  
+[README Russian (RU)](#ru_RU)  
 
 # en_US
 
