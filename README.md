@@ -37,7 +37,7 @@ If a disk address folder is missing, you can either create one manually (which i
 If you’ve genuinely decided to modify the code and contribute to the project, then... go ahead and publish it -- just please don’t change the license.  
 [LICENSE](#LICENSE)  
 
-# Ru_RU
+# ru_RU
 
 ## Ссылки
 [Документация](/doc/ru_RU/README.md)  
