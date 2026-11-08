@@ -23,5 +23,5 @@ drivers_tools является стандартными утилитами др�
 ## init
 init -- необязательный элемент любого драйвера.  
 Должен находится в корне драйвера (`_G.drivers[driver_type][driver_name].init` или `_G.drivers[driver_name].init`)  
-Мы подрузамеваем, что в init вы будете назначать [elements и их ext](/doc/tags.md), напомню что вы можете использовать [drivers_tools](#drivers_tools)  
+Мы подрузамеваем, что в init вы будете назначать [elements и их ext](/doc/ru_RU/tags.md), напомню что вы можете использовать [drivers_tools](#drivers_tools)  
 Любая ошибка в init является критической и приведёт к BSoD (даже если в настройках выстановлено "перезагрузка при ошибке").  

@@ -13,3 +13,6 @@ Core. Тут у нас получается части [init.lua](/src/init.lua)
 
 ## [modules](/src/modules)
 Модули [main.lua](/src/main.lua)
+
+## [lang](/src/lang)
+Локализационные таблицы

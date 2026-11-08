@@ -20,6 +20,7 @@ _G.config = {
 	time_sleep = 2.5,
 	
 	output = false,
+	lang = 1,
 	
 	su = {"FaraBro"},
 	users_can_use = {
@@ -30,6 +31,7 @@ _G.config = {
 			E = false,
 			M = true,
 			O = true,
+			R = false,
 		},
 	},
 	
@@ -47,6 +49,7 @@ _G.config = {
 				E = false,
 				M = false,
 				C = false,
+				R = false,
 			},
 			reset_state = {
 				E = false,

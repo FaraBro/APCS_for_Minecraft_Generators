@@ -1,7 +1,5 @@
 **APCS** -- Automated Process Control System / АСУ
 
-**АСУ** -- Автоматизированная Система Управления / APCS
-
 **CCGT** -- Combined Cycle Gas Turbine / Газовая Турбина Комбинированного Цикла
 
 **ПОС** -- Положительная Обратная Связь
@@ -20,7 +18,11 @@
 
 **su** -- super user
 
+**ID** -- identifier
+
 **gen (-s)** -- generator (-s)
+
+**lang** -- language
 
 **ext** -- extension
 
